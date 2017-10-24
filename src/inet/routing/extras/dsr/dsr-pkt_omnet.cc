@@ -249,7 +249,7 @@ std::string DSRPkt::detailedInfo() const
                     for (unsigned int j = 0; j < srt_opt->addrs.size(); j++)
                     {
                         IPv4Address add(srt_opt->addrs[j]);
-                        out << add << "\n"; // Khmm
+                        out << add << " | "; // Khmm
                     }
                 }
                     break;

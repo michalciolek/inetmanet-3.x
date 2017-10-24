@@ -25,6 +25,7 @@
 namespace inet { class EtherFrame; }
 #endif // ifdef WITH_ETHERNET
 
+#include "inet/routing/extras/dsr/dsr-pkt_omnet.h"
 #ifdef WITH_IPv4
 #include "inet/networklayer/arp/ipv4/ARPPacket_m.h"
 #include "inet/networklayer/ipv4/ICMPMessage.h"
@@ -93,6 +94,7 @@ class INET_API InetPacketPrinter2 : public cMessagePrinter
     std::string formatPingPayload(PingPayload *packet) const;
     std::string formatRIPPacket(RIPPacket *packet) const;
     std::string formatRadioFrame(RadioFrame *packet) const;
+    std::string formatDSRFrame(inetmanet::DSRPkt *packet) const;
     std::string formatTCPPacket(tcp::TCPSegment *tcpSeg) const;
     std::string formatUDPPacket(UDPPacket *udpPacket) const;
 
@@ -127,6 +129,10 @@ void InetPacketPrinter2::printMessage(std::ostream& os, cMessage *msg) const
         if (dgram) {
             srcAddr = dgram->getSourceAddress();
             destAddr = dgram->getDestinationAddress();
+
+            if (dynamic_cast<inetmanet::DSRPkt *>(pk)) {
+                out << formatDSRFrame(static_cast<inetmanet::DSRPkt *>(pk));
+            }
 #ifdef WITH_IPv4
             if (dynamic_cast<IPv4Datagram *>(pk)) {
                 IPv4Datagram *ipv4dgram = static_cast<IPv4Datagram *>(pk);
@@ -506,6 +512,14 @@ std::string InetPacketPrinter2::formatRadioFrame(RadioFrame *packet) const
     // const ITransmission *transmission = packet->getTransmission();
     os << "duration=" << SIMTIME_DBL(packet->getDuration()) * 1000 << "ms";
 #endif // ifdef WITH_RADIO
+    return os.str();
+}
+
+std::string InetPacketPrinter2::formatDSRFrame(inetmanet::DSRPkt *packet) const
+{
+    std::ostringstream os;
+
+    os << "inetmanet::DSRPkt: " << packet->detailedInfo();
     return os.str();
 }
 
