@@ -204,48 +204,48 @@ std::string DSRPkt::detailedInfo() const
             switch (dopt->type)
             {
                 case DSR_OPT_PADN:
-                    out << " DSR_OPT_PADN " << "\n"; // Khmm...
+                    out << " DSR_OPT_PADN "; // Khmm...
                     break;
                 case DSR_OPT_RREQ:
                 {
-                    out << " DSR_OPT_RREQ " << "\n"; // Khmm...
+                    out << " DSR_OPT_RREQ "; // Khmm...
                     dsr_rreq_opt *rreq_opt = check_and_cast<dsr_rreq_opt*>(dopt);
                     IPv4Address add(rreq_opt->target);
-                    out << " Target :" << add << "\n"; // Khmm
+                    out << " Target: " << add << " "; // Khmm
                     for (unsigned int m = 0; m < rreq_opt->addrs.size(); m++)
                     {
                         IPv4Address add(rreq_opt->addrs[m]);
-                        out << add << "\n"; // Khmm
+                        out << add << " | "; // Khmm
                     }
                 }
                     break;
                 case DSR_OPT_RREP:
                 {
-                    out << " DSR_OPT_RREP " << "\n"; // Khmm...Q
+                    out << " DSR_OPT_RREP "; // Khmm...Q
                     dsr_rrep_opt *rrep_opt = check_and_cast<dsr_rrep_opt*>(dopt);
                     for (unsigned int m = 0; m < rrep_opt->addrs.size(); m++)
                     {
                         IPv4Address add(rrep_opt->addrs[m]);
-                        out << add << "\n"; // Khmm
+                        out << add << " | "; // Khmm
                     }
 
                 }
                     break;
                 case DSR_OPT_RERR:
-                    out << " DSR_OPT_RERR " << "\n"; // Khmm...
+                    out << " DSR_OPT_RERR | "; // Khmm...
 
                     break;
                 case DSR_OPT_PREV_HOP:
-                    out << " DSR_OPT_PREV_HOP " << "\n"; // Khmm...
+                    out << " DSR_OPT_PREV_HOP | "; // Khmm...
                     break;
                 case DSR_OPT_ACK:
-                    out << " DSR_OPT_ACK " << "\n"; // Khmm...
+                    out << " DSR_OPT_ACK | "; // Khmm...
                     break;
                 case DSR_OPT_SRT:
                 {
-                    out << " DSR_OPT_SRT " << "\n"; // Khmm...
+                    out << " DSR_OPT_SRT "; // Khmm...
                     dsr_srt_opt *srt_opt = check_and_cast<dsr_srt_opt*>(dopt);
-                    out << "next hop : " << next << "  previous : " << previous << "\n Route \n";
+                    out << "next hop: " << next << "  previous: " << previous << "\n Route \n";
                     for (unsigned int j = 0; j < srt_opt->addrs.size(); j++)
                     {
                         IPv4Address add(srt_opt->addrs[j]);
@@ -254,21 +254,21 @@ std::string DSRPkt::detailedInfo() const
                 }
                     break;
                 case DSR_OPT_TIMEOUT:
-                    out << " DSR_OPT_TIMEOUT " << "\n"; // Khmm...
+                    out << " DSR_OPT_TIMEOUT | "; // Khmm...
                     break;
                 case DSR_OPT_FLOWID:
-                    out << " DSR_OPT_FLOWID " << "\n"; // Khmm...
+                    out << " DSR_OPT_FLOWID | "; // Khmm...
                     break;
                 case DSR_OPT_ACK_REQ:
-                    out << " DSR_OPT_ACK_REQ " << "\n"; // Khmm...
+                    out << " DSR_OPT_ACK_REQ | "; // Khmm...
                     break;
                 case DSR_OPT_PAD1:
-                    out << " DSR_OPT_PAD1 " << "\n"; // Khmm...
+                    out << " DSR_OPT_PAD1 | "; // Khmm...
                     l++;
                     dopt++;
                     continue;
                 default:
-                    out << " Unknown DSR option type " << "\n"; // Khmm...
+                    out << " Unknown DSR option type | "; // Khmm...
             }
         }
     }
